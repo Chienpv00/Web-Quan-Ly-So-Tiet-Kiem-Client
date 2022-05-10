@@ -11,6 +11,9 @@ import { Provider } from 'react-redux';
 import store from './app/store'
 // import component
 import Login from './page/Login/Login';
+import Home from './page/Home/Home';
+
+import PhieuRutTien from './component/PhieuRutTien';
 
 const client = new ApolloClient({
     uri: 'http://localhost:4000/graphql',
@@ -27,7 +30,10 @@ ReactDOM.render(
                     <Routes>
                         <Route path="/" element={<App />}>
                             <Route path="" element={<Login />} />
-                            <Route path="home" element={<></>} />
+                            <Route path="home" element={<Home/>} >
+                                <Route index element={<div>Vui lòng chọn tính năng</div>}/>
+                                <Route path='phieu-rut-tien' element={<PhieuRutTien/>} />
+                            </Route>
                         </Route>
                         <Route path="*" element={<h2>Nothing here</h2>} />
                     </Routes>
