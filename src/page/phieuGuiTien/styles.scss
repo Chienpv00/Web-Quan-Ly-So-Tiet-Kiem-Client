@@ -1,0 +1,48 @@
+.phieu-gui-tien {
+    .alert{
+        width: max-content;
+        background-color: rgba(0, 0, 0, 0);
+        border: none;
+
+        span{
+            color: black;
+
+            &:hover{
+                cursor: pointer;
+                font-weight: bold;
+            }
+        }
+    }
+
+    .close-btn-checkkh{
+        
+        &:hover{
+            color: red;
+        }
+
+    }
+
+    .subNav{
+
+        .subNavItem{
+            margin: 5px 0;
+
+            &:hover{
+                cursor: pointer;
+                span{
+                    color: #324BD9;
+                    
+                }
+            }
+        }
+    }
+
+    .active{
+        font-weight: bold;
+        color: #324BD9;
+    }
+     
+    .modal1{
+        font-size: 10px !important;
+    }
+}

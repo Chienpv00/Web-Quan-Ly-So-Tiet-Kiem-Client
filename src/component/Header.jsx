@@ -4,8 +4,6 @@ import './styleHeader.scss';
 
 import { Button } from 'react-bootstrap';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 const Header = ({ adminMode, userMode, managementMode }) => {
     return (
         <header className="">
@@ -45,7 +43,6 @@ const Header = ({ adminMode, userMode, managementMode }) => {
                     </ul>
                 </nav>
                 <div className="account textLink">
-                    <AccountCircleIcon />
                 </div>
             </Container>
         </header>

@@ -1,9 +1,16 @@
-form{
-    width: 400px;
-    padding: 0 20px;
+.form-login{
+    width: 400px !important;
 }
 
 h2{
     text-align: center;
 }
 
+.alert-login{
+    width: 400px  !important;
+    margin: auto !important;
+    margin-top: 10px !important;
+    text-align: center !important;
+    background-color: rgba(0, 0, 0, 0) !important;
+    color: rgb(222, 3, 3) !important;
+}

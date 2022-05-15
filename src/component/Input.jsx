@@ -31,7 +31,7 @@ const Input = ({ type, placeholder, register, name, required, minLength, pattern
                     }
                 )}
             />
-            <span>{errors?.message}</span>
+            <span style={{color: 'red'}}>{errors?.message}</span>
         </div>
     );
 };

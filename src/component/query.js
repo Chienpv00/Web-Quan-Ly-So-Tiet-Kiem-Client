@@ -37,4 +37,14 @@ const GET_DS_PGT = gql`
     }
 `;
 
-export { CHECK_KHACH_HANG, GET_DS_PGT };
+const CREATE_PHIEU_RUT_TIEN = gql`
+    mutation Mutation($maPhieuGoi: String!, $ngayRut: String!) {
+        createPhieuRutTien(MaPhieuGoi: $maPhieuGoi, NgayRut: $ngayRut) {
+            code
+            success
+            message
+        }
+    }
+`;
+
+export { CHECK_KHACH_HANG, GET_DS_PGT, CREATE_PHIEU_RUT_TIEN };

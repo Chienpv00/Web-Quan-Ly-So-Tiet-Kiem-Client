@@ -7,7 +7,7 @@ import './styleHeader.scss';
 
 export default function FormField({children, onSubmit, legend}) {
     return (
-        <Form onSubmit={onSubmit}>
+        <Form method='post' onSubmit={onSubmit}>
             <fieldset>
                 <legend>{legend}</legend>
                 

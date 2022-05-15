@@ -6,8 +6,9 @@ import { useLazyQuery } from '@apollo/client';
 import { CHECK_LOGIN } from './graphql';
 import { useSelector, useDispatch } from 'react-redux';
 import { success } from '../../futures/login/loginSlice';
-import {useNavigate} from 'react-router-dom'
-
+import { useNavigate } from 'react-router-dom';
+import { Alert, Spinner } from 'react-bootstrap';
+import {BsFillExclamationTriangleFill} from 'react-icons/bs'
 
 const Login = () => {
     // create react hook form
@@ -21,17 +22,15 @@ const Login = () => {
     // get data from redux
     const loginData = useSelector((state) => state.login);
     const dispatch = useDispatch();
-    
+
     React.useEffect(() => {
-        if(loginData.success === true)
-            navigate('/home')
-    },[loginData.success])
+        if (loginData.success === true) navigate('/home');
+    }, [loginData.success]);
     // create navigate func from hook
     const navigate = useNavigate();
 
     // fetch data
     const [submitDataToServer, { loading, error, data, called }] = useLazyQuery(CHECK_LOGIN);
-     
 
     const onSubmit = handleSubmit((result) => {
         submitDataToServer({
@@ -45,11 +44,9 @@ const Login = () => {
         });
     });
 
-
-
     return (
         <main className="container">
-            <form onSubmit={onSubmit} className="mx-auto d-grid gap-2">
+            <form onSubmit={onSubmit} className="mx-auto d-grid gap-2 form-login">
                 <h2 className="">Đăng nhập</h2>
 
                 <div className="mb-2">
@@ -77,11 +74,12 @@ const Login = () => {
                     errors={errors?.password}
                     clearErrors={clearErrors}
                 />
-                <button className="btn btn-primary mt-3">Đăng nhập</button>
+                <button className="btn btn-primary mt-3  fs-5"> {loading && (
+                    <Spinner animation="border" size='sm' />
+            )} Đăng nhập</button>
             </form>
-            {loading && <h2>Loading...</h2>}
-            {error && <h2>Error...</h2>}
             
+            {error && <Alert className='alert-login' variant='danger'><BsFillExclamationTriangleFill/> Đăng nhập thất bại!!</Alert>}
         </main>
     );
 };

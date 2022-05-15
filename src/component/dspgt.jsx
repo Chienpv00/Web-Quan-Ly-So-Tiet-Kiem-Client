@@ -1,13 +1,37 @@
 import { useQuery } from '@apollo/client';
-import React from 'react';
-import { Table } from 'react-bootstrap';
+import React, {  useState } from 'react';
+import { Form, Table } from 'react-bootstrap';
 import { GET_DS_PGT } from './query';
 
-export default function Dspgt({maKhachHang}) {
-    const { loading, error, data } = useQuery(GET_DS_PGT, {variables: {maKhachHang: maKhachHang}});
+export default function Dspgt({ maKhachHang , getPRT }) {
+    const [disCheck, setDisCheck] = useState([]);
+    const { loading, error, data } = useQuery(GET_DS_PGT, { variables: { maKhachHang: maKhachHang }, onCompleted: (result) => {
+        setDisCheck(Array(result.getDSPGTbyMaKH.length).fill(false));
+        
+    } });
+    
+
     if (loading || error) return <></>;
+
+   
+
+    const handleChange = (e) => {
+        if (e.target.checked === true) {
+            setDisCheck((pre) => {
+                return pre.map((value, index) => {
+                    return e.target.value == index ? false : true;
+                });
+            });
+        } else {
+            setDisCheck((pre) => { return pre.map((value) => { return false }) })
+        }
+        getPRT(data.getDSPGTbyMaKH[e.target.value])
+    };
+
+    let i = -1;
+
     return (
-        <Table striped bordered hover>
+        <Table style={{ overflowY: 'auto', height: '200px !important' }} responsive striped bordered hover>
             <thead>
                 <tr>
                     <th>Mã KH</th>
@@ -21,7 +45,8 @@ export default function Dspgt({maKhachHang}) {
                 </tr>
             </thead>
             <tbody>
-                {data.getDSPGTbyMaKH.map((result) => {
+                {data.getDSPGTbyMaKH.map((result, index, arr) => {
+                    i++;
                     return (
                         <tr key={result.MaPhieuGoi}>
                             <td>{result.MaKhachHang}</td>
@@ -31,6 +56,9 @@ export default function Dspgt({maKhachHang}) {
                             <td>{result.SoTienGoi}</td>
                             <td>{result.SoDu}</td>
                             <td>{result.NgayDaoHanKeTiep || ''}</td>
+                            <td>
+                                <Form.Check value={i} onChange={handleChange} disabled={disCheck[i]} />
+                            </td>
                         </tr>
                     );
                 })}
