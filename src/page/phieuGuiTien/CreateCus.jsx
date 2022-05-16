@@ -17,6 +17,8 @@ const CreateCus = () => {
     const [modal2, setModal2] = useState(false);
     const [modal3, setModal3] = useState(false);
     const [data1, setData1] = useState()
+    const [sizeModal, setSizeModal] = useState('');
+
 
     const {
         register,
@@ -35,7 +37,7 @@ const CreateCus = () => {
         setModal1(false);
         setModal2(false);
         setModal3(false);
-        
+        setSizeModal('')
         reset();
         resetField('name');
         resetField('phone');
@@ -47,7 +49,6 @@ const CreateCus = () => {
     let dataHookForm;
     const submitCreCus = () => {
         dataHookForm = getValues();
-        console.log('🚀 ~ file: CreateCus.jsx ~ line 40 ~ submitCreCus ~ dataHookForm', dataHookForm);
 
         createCustomer({
             variables: {
@@ -62,6 +63,7 @@ const CreateCus = () => {
                 if (result.createKhachHang.success === true) {
                     setModal1(true);
                     setModal3(true)
+                    setSizeModal('lg')
                 } else {
                     setModal2(true);
                 }
@@ -70,7 +72,6 @@ const CreateCus = () => {
     };
 
     const handleCreateCus = handleSubmit((result) => {
-        console.log('🚀 ~ file: CreateCus.jsx ~ line 56 ~ handleCreateCus ~ result', result);
     });
     return (
         <FormField legend={'Tạo khách hàng mới:'} onSubmit={handleCreateCus}>
@@ -149,7 +150,7 @@ const CreateCus = () => {
             >
                 Tạo khách hàng
             </Button>
-            <Modal backdrop="static" onHide={handleClose} show={showModal2} centered animation>
+            <Modal size={sizeModal} backdrop="static" onHide={handleClose} show={showModal2} centered animation>
                 <Modal.Header closeButton>
                     {' '}
                     <Modal.Title className="text-center text-dark modal1">

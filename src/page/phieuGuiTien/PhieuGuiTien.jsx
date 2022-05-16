@@ -29,39 +29,12 @@ const PhieuGuiTien = () => {
     } = useForm();
 
     // khai bao hook useState cho viec display notify for not find customer
-    const [checkCustomer, setCheckCustomer] = useState(false);
 
     // khai bao mang usetate 3 phan tu trong sub nav
     const [nav, setNav] = useState([true, false, false]);
+    const [data, setData] = useState()
 
-    // Khai bao useLazyQuery cho api truy van khach hang theo cmnd
-    const [loadCheckKH, { data }] = useLazyQuery(GET_KH_BY_CMND);
 
-    // khai bao useMutation cho viec tao khach hang
-  
-
-    // useState cho bang ket qua khach hang
-    const [tableCus, setTableCus] = useState(false);
-
-    // useState cho viec tao khach hang
-    const [dataCreCus, setDataCreCus] = useState();
-
-    const onSubmit = handleSubmit((result) => {
-        console.log('🚀 ~ file: PhieuGuiTien.jsx ~ line 36 ~ onSubmit ~ result', result);
-        loadCheckKH({
-            variables: { cmnd: result.searchKH },
-            onCompleted: (checkKHapi) => {
-                console.log('🚀 ~ file: PhieuGuiTien.jsx ~ line 45 ~ loadCheckKH ~ checkKHapi', checkKHapi);
-                if (checkKHapi.getKhachHangByCmnd === null) {
-                    setCheckCustomer(true);
-                    setTableCus(false);
-                } else {
-                    setTableCus(true);
-                    setCheckCustomer(false);
-                }
-            },
-        });
-    });
     const RenderSearchCus = () => {
         setNav([true, false, false]);
     };
@@ -69,13 +42,10 @@ const PhieuGuiTien = () => {
     const RenderCreateCus = () => {
         setNav([false, true, false]);
     };
-
-    const RenderCreatePGT = () => {
-        setNav([false, false, true]);
-    };
-
    
-
+    const callSetData = (value) => {
+        setData(value)
+    }
    
     return (
         <div className="phieu-gui-tien">
@@ -84,29 +54,27 @@ const PhieuGuiTien = () => {
                 <Col sm="2" className="subNav">
                     <Nav className="flex-column">
                         <Nav.Item className={nav[0] ? 'subNavItem active' : 'subNavItem'} onClick={RenderSearchCus}>
-                            <span>Tìm kiếm khách hàng</span>
+                            <span>Tạo phiếu gởi tiền</span>
                         </Nav.Item>
                         <Nav.Item className={nav[1] ? 'subNavItem active' : 'subNavItem'} onClick={RenderCreateCus}>
                             <span>Tạo khách hàng mới</span>
                         </Nav.Item>
-                        <Nav.Item className={nav[2] ? 'subNavItem active' : 'subNavItem'} onClick={RenderCreatePGT}>
+                        {/* <Nav.Item className={nav[2] ? 'subNavItem active' : 'subNavItem'} onClick={RenderCreatePGT}>
                             <span>Tạo phiếu gởi tiền</span>
-                        </Nav.Item>
+                        </Nav.Item> */}
                     </Nav>
                 </Col>
                 <Col sm="10">
                     {nav[0] && (
+                        <>
                         <SearchCustomer
-                            onSubmit={onSubmit}
-                            clearErrors={clearErrors}
-                            register={register}
-                            errors={errors}
-                            tableCus={tableCus}
-                            checkCustomer={checkCustomer}
+
                             RenderCreateCus={RenderCreateCus}
                             setNav={setNav}
-                            data={data}
+                            callSetData={callSetData}
                         />
+                        {nav[2]&&<CreatePgt dataCus={data}/>}
+                        </>
                     )}
 
                     {nav[1] && (
@@ -117,7 +85,7 @@ const PhieuGuiTien = () => {
                             
                         />
                     )}
-                    {nav[2] && <CreatePgt/>}
+                    
                 </Col>
             </Row>
         </div>
