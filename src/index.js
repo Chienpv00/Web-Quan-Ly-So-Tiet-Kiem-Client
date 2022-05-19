@@ -15,6 +15,7 @@ import Home from './page/Home/Home';
 
 import PhieuRutTien from './component/PhieuRutTien';
 import PhieuGuiTien from './page/phieuGuiTien/PhieuGuiTien';
+import ListPgt from './page/ListPgt/ListPgt';
 
 const client = new ApolloClient({
     uri: 'http://localhost:4000/graphql',
@@ -35,7 +36,7 @@ ReactDOM.render(
                                 <Route index element={<div>Vui lòng chọn tính năng</div>}/>
                                 <Route path='phieu-rut-tien' element={<PhieuRutTien/>} />
                                 <Route path='phieu-gui-tien' element={<PhieuGuiTien/>} />
-
+                                <Route path='danh-sach-phieu-gui-tien' element={<ListPgt/>}/>
                             </Route>
                         </Route>
                         <Route path="*" element={<h2>Nothing here</h2>} />

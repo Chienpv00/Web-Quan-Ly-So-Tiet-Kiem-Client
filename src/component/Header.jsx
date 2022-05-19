@@ -26,7 +26,7 @@ const Header = ({ adminMode, userMode, managementMode }) => {
                             </NavLink>
                         </li>
                         <li className="">
-                            <NavLink className="textLink" to="">
+                            <NavLink className="textLink" to="danh-sach-phieu-gui-tien">
                                 DS Phiếu Gửi Tiền
                             </NavLink>
                         </li>
