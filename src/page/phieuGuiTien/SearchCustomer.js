@@ -45,7 +45,7 @@ const SearchCustomer = ({ setNav, RenderCreateCus, callSetData }) => {
         <FormField legend={'Tìm kiếm khách hàng: '} onSubmit={onSubmit}>
             <Row>
                 <Col sm="4">
-                    <Form.Group as={Row}>
+                    <Form.Group className='mb-3' as={Row}>
                         <Form.Label column sm="4">
                             CCCD/CMND:
                         </Form.Label>
