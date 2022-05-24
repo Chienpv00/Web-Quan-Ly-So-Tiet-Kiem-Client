@@ -26,6 +26,7 @@ function TableCpnForReportDay({ day, month, year }) {
         <Table striped bordered>
             <thead>
                 <tr>
+                    <th>Số thứ tự</th>
                     <th>Loại tiết kiệm</th>
                     <th>Tổng thu</th>
                     <th>Tổng chi</th>
@@ -33,11 +34,12 @@ function TableCpnForReportDay({ day, month, year }) {
                 </tr>
             </thead>
             <tbody>
-                {data.getReportDay.map((value) => {
+                {data.getReportDay.map((value, index) => {
                         tempTc = value.TongChi + tempTc
                         tempTt =  value.TongThu + tempTt
                     return (
                         <tr key={value.LoaiTietKiem}>
+                            <td>{index+1}</td>
                             <td>{value.LoaiTietKiem}</td>
                             <td>{value.TongThu}</td>
                             <td>{value.TongChi}</td>

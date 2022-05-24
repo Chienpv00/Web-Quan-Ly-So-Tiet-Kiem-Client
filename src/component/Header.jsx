@@ -1,18 +1,18 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import './styleHeader.scss';
-
-import { Button } from 'react-bootstrap';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
-const Header = ({ adminMode, userMode, managementMode }) => {
-    const navigate = useNavigate()
 
-    const handleBaoCao = (eventKey) => { 
-        eventKey === 1 ? navigate('bao-cao-doanh-so-hoat-dong-ngay') : navigate('bao-cao-doanh-so-hoat-dong-ngay')
-     }
+const Header = ({ adminMode, userMode, managementMode }) => {
+    const navigate = useNavigate();
+
+    const handleBaoCao = (eventKey) => {
+        if (eventKey === '1') navigate('bao-cao-doanh-so-hoat-dong-ngay');
+        if (eventKey === '2') navigate('bao-cao-phieu-dong-mo-thang');
+    };
     return (
         <header className="headerCpn">
-            <Container className='flex align-items-center'>
+            <Container className="flex align-items-center">
                 <div className="logo">
                     <NavLink className={'textLink'} to="/home">
                         QUẢN LÝ SỔ TIẾT KIỆM
@@ -36,20 +36,19 @@ const Header = ({ adminMode, userMode, managementMode }) => {
                             </NavLink>
                         </li>
                         <li className="textLink">
-                            <NavDropdown title="Báo Cáo" bsPrefix='navDrop' onSelect={handleBaoCao}>
-                                <NavDropdown.Item eventKey={1} >Báo cáo doanh số hoạt động ngày</NavDropdown.Item>
-                                <NavDropdown.Item eventKey={2}>Báo cáo phiếu đóng mở tháng</NavDropdown.Item>
+                            <NavDropdown title="Báo Cáo" bsPrefix="navDrop" onSelect={handleBaoCao}>
+                                <NavDropdown.Item eventKey="1">Báo cáo doanh số hoạt động ngày</NavDropdown.Item>
+                                <NavDropdown.Item eventKey="2">Báo cáo phiếu đóng mở tháng</NavDropdown.Item>
                             </NavDropdown>
                         </li>
                         <li className="textLink">
-                            <NavDropdown title="Thay Đổi Quy Định" bsPrefix='navDrop'>
+                            <NavDropdown title="Thay Đổi Quy Định" bsPrefix="navDrop">
                                 <NavDropdown.Item>Báo cáo phiếu đóng mở tháng</NavDropdown.Item>
                             </NavDropdown>
                         </li>
                     </ul>
                 </nav>
-                <div className="account textLink">
-                </div>
+                <div className="account textLink"></div>
             </Container>
         </header>
     );

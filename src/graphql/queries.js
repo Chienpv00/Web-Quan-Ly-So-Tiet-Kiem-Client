@@ -10,3 +10,12 @@ export const GET_REPORT_DAY = gql`
     }
 `;
 
+export const GET_REPORT_OC_MONTH = gql`
+    query GetReportDay($month: String!, $year: String!) {
+        getReportOCMonth(month: $month, year: $year) {
+            day
+            open
+            close
+        }
+    }
+`;
