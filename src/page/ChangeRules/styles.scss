@@ -1,0 +1,33 @@
+.changeRules{
+
+   .subNav{
+       border: 0px solid black;
+       box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.407);
+       padding: 0px;
+       height: fit-content;
+        .subNavItem{
+            
+            padding: 5px 0px 5px 30px;
+            color: grey;
+
+            &:hover{
+                cursor: pointer;
+                opacity: 0.6;
+            }
+        }
+
+       .active{
+           background-color: rgba(0, 0, 0, 0.122);
+           color: black;
+           font-weight: bold;
+       }
+   }
+
+   .datePicker{
+       width: 100%;
+       height: 100%;
+       
+      
+   }
+
+}

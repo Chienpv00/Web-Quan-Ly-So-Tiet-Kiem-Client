@@ -42,9 +42,12 @@ const Header = ({ adminMode, userMode, managementMode }) => {
                             </NavDropdown>
                         </li>
                         <li className="textLink">
-                            <NavDropdown title="Thay Đổi Quy Định" bsPrefix="navDrop">
+                        <NavLink className="textLink" to="thay-doi-quy-dinh">
+                        Thay Đổi Quy Định
+                            </NavLink>
+                            {/* <NavDropdown title="Thay Đổi Quy Định" bsPrefix="navDrop">
                                 <NavDropdown.Item>Báo cáo phiếu đóng mở tháng</NavDropdown.Item>
-                            </NavDropdown>
+                            </NavDropdown> */}
                         </li>
                     </ul>
                 </nav>

@@ -18,6 +18,7 @@ import PhieuGuiTien from './page/phieuGuiTien/PhieuGuiTien';
 import ListPgt from './page/ListPgt/ListPgt';
 import ReportDay from './page/ReportDay/ReportDay';
 import ReportOCMonth from './page/ReportOpenCloseMonth/ReportOCMonth';
+import ChangeRules from './page/ChangeRules/ChangeRules'
 
 const client = new ApolloClient({
     uri: 'http://localhost:4000/graphql',
@@ -41,7 +42,7 @@ ReactDOM.render(
                                 <Route path='danh-sach-phieu-gui-tien' element={<ListPgt/>}/>
                                 <Route path='bao-cao-doanh-so-hoat-dong-ngay' element={<ReportDay/>}/>
                                 <Route path='bao-cao-phieu-dong-mo-thang' element={<ReportOCMonth/>}/>
-
+                                <Route path='thay-doi-quy-dinh' element={<ChangeRules/>}/>
                             </Route>
                         </Route>
                         <Route path="*" element={<h2>Nothing here</h2>} />
