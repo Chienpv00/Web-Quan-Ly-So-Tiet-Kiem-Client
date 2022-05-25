@@ -20,14 +20,26 @@ export const GET_REPORT_OC_MONTH = gql`
     }
 `;
 
-export const GET_LOAI_TIET_KIEM = gql `
-query Query {
-    getLoaitk {
-      MaLoaiTietKiem
-      TenLoaiTietKiem
-      KyHan
-      LaiSuatHienTai
-      NgayApDung
+export const GET_LOAI_TIET_KIEM = gql`
+    query Query {
+        getLoaitk {
+            MaLoaiTietKiem
+            TenLoaiTietKiem
+            KyHan
+            LaiSuatHienTai
+            NgayApDung
+        }
     }
-  }
-`
+`;
+
+export const GET_LOAI_TIET_KIEM_THEO_MA = gql`
+    query Query($ma: String!) {
+        getLoaitkWithma(ma: $ma) {
+            MaLoaiTietKiem
+            TenLoaiTietKiem
+            KyHan
+            LaiSuatHienTai
+            NgayApDung
+        }
+    }
+`;

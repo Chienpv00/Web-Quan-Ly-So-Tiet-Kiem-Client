@@ -1,19 +1,20 @@
 import { useQuery } from '@apollo/client';
-import React, {  useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Table } from 'react-bootstrap';
 import { GET_DS_PGT } from './query';
 
-export default function Dspgt({ maKhachHang , getPRT }) {
+export default function Dspgt({ maKhachHang, getPRT }) {
     const [disCheck, setDisCheck] = useState([]);
-    const { loading, error, data } = useQuery(GET_DS_PGT, { variables: { maKhachHang: maKhachHang }, onCompleted: (result) => {
-        setDisCheck(Array(result.getDSPGTbyMaKH.length).fill(false));
-        
-    } });
-    
+    const { loading, error, data, refetch } = useQuery(GET_DS_PGT, {
+        variables: { maKhachHang: maKhachHang },
+        onCompleted: (result) => {
+            setDisCheck(Array(result.getDSPGTbyMaKH.length).fill(false));
+        },
+    });
+
+  
 
     if (loading || error) return <></>;
-
-   
 
     const handleChange = (e) => {
         if (e.target.checked === true) {
@@ -23,9 +24,13 @@ export default function Dspgt({ maKhachHang , getPRT }) {
                 });
             });
         } else {
-            setDisCheck((pre) => { return pre.map((value) => { return false }) })
+            setDisCheck((pre) => {
+                return pre.map((value) => {
+                    return false;
+                });
+            });
         }
-        getPRT(data.getDSPGTbyMaKH[e.target.value])
+        getPRT(data.getDSPGTbyMaKH[e.target.value]);
     };
 
     let i = -1;

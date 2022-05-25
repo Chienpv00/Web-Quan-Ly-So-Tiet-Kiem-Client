@@ -33,3 +33,20 @@ export const DELETE_RULES = gql`
         }
     }
 `;
+
+export const UPDATE_RULES = gql`
+    mutation Mutation($loaiTkInp: UpdateLTKInp!) {
+        updateLoaiTietKiem(loaiTKInp: $loaiTkInp) {
+            code
+            success
+            message
+            LoaiTietKiem {
+                MaLoaiTietKiem
+                TenLoaiTietKiem
+                KyHan
+                LaiSuatHienTai
+                NgayApDung
+            }
+        }
+    }
+`;

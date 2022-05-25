@@ -18,6 +18,7 @@ const PhieuRutTien = () => {
     const [phieuRT, setPhieuRT] = useState();
     const [show, setShow] = useState(false);
     const [noti, setNoti] = useState(false);
+   
     const [mutateFunc, { data1, loading1, error }] = useMutation(CREATE_PHIEU_RUT_TIEN);
     const navigate = useNavigate()
     const {
@@ -66,6 +67,8 @@ const PhieuRutTien = () => {
     const nowObj = new Date();
     const now = dateFormat(nowObj, 'yyyy/mm/d');
 
+
+    
     return (
         <div>
             <h5>PHIẾU RÚT TIỀN</h5>
@@ -100,7 +103,7 @@ const PhieuRutTien = () => {
                 </Row>
                 <div style={renderDs ? { overflowY: 'auto', height: '207px' } : {}} className="scrollTable">
                     {renderDs && (
-                        <Dspgt getPRT={getPRT} maKhachHang={data?.checkKhachHangExists?.KhachHang?.MaKhachHang} />
+                        <Dspgt test={test} getPRT={getPRT} maKhachHang={data?.checkKhachHangExists?.KhachHang?.MaKhachHang} />
                     )}
                 </div>
             </FormField>
@@ -247,7 +250,7 @@ const PhieuRutTien = () => {
                         <Button onClick={handleClick} className="mb-3">
                             Tạo phiếu rút
                         </Button>
-                        <Modal show={show} onHide={handleClose}>
+                        <Modal backdrop= 'static' show={show} onHide={handleClose}>
                             <Modal.Header closeButton>
                                 <Modal.Title>Xác nhận</Modal.Title>
                             </Modal.Header>
@@ -261,6 +264,7 @@ const PhieuRutTien = () => {
                                             onCompleted: () => {
                                                 setNoti(true)
                                                 setRenderDs()
+                                               
                                             },
                                         });
                                     }}
