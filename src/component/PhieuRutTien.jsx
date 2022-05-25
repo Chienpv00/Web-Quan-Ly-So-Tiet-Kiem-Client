@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Col, Modal } from 'react-bootstrap';
 import { Alert } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
@@ -12,7 +12,9 @@ import { CHECK_KHACH_HANG, CREATE_PHIEU_RUT_TIEN } from './query';
 import Dspgt from './dspgt';
 import { useNavigate } from 'react-router-dom';
 
+
 const PhieuRutTien = () => {
+
     const [renderDs, setRenderDs] = useState(false);
     const [alertState, setAlertState] = useState(false);
     const [phieuRT, setPhieuRT] = useState();
@@ -103,7 +105,7 @@ const PhieuRutTien = () => {
                 </Row>
                 <div style={renderDs ? { overflowY: 'auto', height: '207px' } : {}} className="scrollTable">
                     {renderDs && (
-                        <Dspgt test={test} getPRT={getPRT} maKhachHang={data?.checkKhachHangExists?.KhachHang?.MaKhachHang} />
+                        <Dspgt getPRT={getPRT} maKhachHang={data?.checkKhachHangExists?.KhachHang?.MaKhachHang} />
                     )}
                 </div>
             </FormField>

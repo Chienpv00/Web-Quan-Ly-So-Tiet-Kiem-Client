@@ -1,9 +1,10 @@
 import { useQuery } from '@apollo/client';
-import React, { useState, useEffect } from 'react';
+import React, {   useState, useEffect } from 'react';
 import { Form, Table } from 'react-bootstrap';
 import { GET_DS_PGT } from './query';
 
 export default function Dspgt({ maKhachHang, getPRT }) {
+    
     const [disCheck, setDisCheck] = useState([]);
     const { loading, error, data, refetch } = useQuery(GET_DS_PGT, {
         variables: { maKhachHang: maKhachHang },
@@ -11,6 +12,8 @@ export default function Dspgt({ maKhachHang, getPRT }) {
             setDisCheck(Array(result.getDSPGTbyMaKH.length).fill(false));
         },
     });
+    // create ref refetch
+   
 
   
 
