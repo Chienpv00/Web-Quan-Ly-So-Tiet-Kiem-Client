@@ -1,13 +1,13 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import { Outlet } from 'react-router-dom';
-import { Header } from '../../component';
+import Header from '../../component/Header';
 
 const Home = () => {
     return (
         <div>
+            <Header adminMode={true} />
             <Container>
-                <Header adminMode={true} />
                 <Outlet />
             </Container>
         </div>
