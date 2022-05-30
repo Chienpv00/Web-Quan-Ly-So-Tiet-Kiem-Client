@@ -1,4 +1,5 @@
 import React from "react";
+import { FloatingLabel, Form } from "react-bootstrap";
 
 const Input = ({ type,onKeyDown, placeholder, register, name, required, minLength, pattern, errors, clearErrors}) => {
     
@@ -7,8 +8,11 @@ const Input = ({ type,onKeyDown, placeholder, register, name, required, minLengt
     }
 
     return (
-        <div>
-            <input
+        <FloatingLabel
+        label={placeholder}
+        >
+
+            <Form.Control
                 onKeyDown={onKeyDown}
                 onChange={onChange}
                 className="form-control"
@@ -33,7 +37,7 @@ const Input = ({ type,onKeyDown, placeholder, register, name, required, minLengt
                 )}
             />
             <span style={{color: 'red'}}>{errors?.message}</span>
-        </div>
+        </FloatingLabel>
     );
 };
 

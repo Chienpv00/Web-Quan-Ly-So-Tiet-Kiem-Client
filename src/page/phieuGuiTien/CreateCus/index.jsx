@@ -1,12 +1,11 @@
-import FormField from '../../component/FormField';
+import FormField from '../../../component/FormField';
 import { useState } from 'react';
-import { Row, Col, Form, Button, Alert, Modal } from 'react-bootstrap';
-import Inputbs from '../../component/Inputbs';
+import { Row, Col, Form, Button, Modal } from 'react-bootstrap';
+import Inputbs from '../../../component/Inputbs';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@apollo/client';
-import { CREATE_CUSTOMER } from './graphql';
+import { CREATE_CUSTOMER } from '../../../graphql/mutations';
 import { Table } from 'react-bootstrap';
-import { Spinner } from 'react-bootstrap';
 
 const CreateCus = () => {
     // khai bao useState cho model tao khach hang
@@ -16,9 +15,8 @@ const CreateCus = () => {
     const [modal1, setModal1] = useState(false);
     const [modal2, setModal2] = useState(false);
     const [modal3, setModal3] = useState(false);
-    const [data1, setData1] = useState()
+    const [data1, setData1] = useState();
     const [sizeModal, setSizeModal] = useState('');
-
 
     const {
         register,
@@ -37,13 +35,12 @@ const CreateCus = () => {
         setModal1(false);
         setModal2(false);
         setModal3(false);
-        setSizeModal('')
+        setSizeModal('');
         reset();
         resetField('name');
         resetField('phone');
         resetField('address');
         resetField('cmnd');
-
     };
 
     let dataHookForm;
@@ -58,12 +55,12 @@ const CreateCus = () => {
                 sdt: dataHookForm.phone,
             },
             onCompleted: (result) => {
-                setData1(result)
+                setData1(result);
                 setModal0(false);
                 if (result.createKhachHang.success === true) {
                     setModal1(true);
-                    setModal3(true)
-                    setSizeModal('lg')
+                    setModal3(true);
+                    setSizeModal('lg');
                 } else {
                     setModal2(true);
                 }
@@ -71,8 +68,7 @@ const CreateCus = () => {
         });
     };
 
-    const handleCreateCus = handleSubmit((result) => {
-    });
+    const handleCreateCus = handleSubmit((result) => {});
     return (
         <FormField legend={'Tạo khách hàng mới:'} onSubmit={handleCreateCus}>
             <Form.Group as={Row}>
@@ -161,7 +157,14 @@ const CreateCus = () => {
                     <Modal.Body className="text-center text-primary">
                         <Row>
                             <Col>
-                                <Button onClick={() => { setshowModal2(false) }} variant="secondary">Hủy</Button>
+                                <Button
+                                    onClick={() => {
+                                        setshowModal2(false);
+                                    }}
+                                    variant="secondary"
+                                >
+                                    Hủy
+                                </Button>
                             </Col>
                             <Col>
                                 <Button onClick={submitCreCus}>Xác nhận</Button>
@@ -169,31 +172,42 @@ const CreateCus = () => {
                         </Row>
                     </Modal.Body>
                 )}
-                {modal1 && <Modal.Body className="text-center text-success">✅ Tạo khách hàng thành công!! {loading? ' ': modal3&&
-                     <Table>
-                        <Table className="mt-3" striped bordered hover size="sm">
-                                        <thead>
-                                            <tr>
-                                                <th>Mã khách hàng</th>
-                                                <th>Tên khách hàng</th>
-                                                <th>CMND/CCCD</th>
-                                                <th>SDT</th>
-                                                <th>Địa chỉ</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>{data1?.createKhachHang?.khachhang.MaKhachHang}</td>
-                                                <td>{data1?.createKhachHang?.khachhang.TenKhachHang}</td>
-                                                <td>{data1?.createKhachHang?.khachhang.CMND}</td>
-                                                <td>{data1?.createKhachHang?.khachhang.SDT}</td>
-                                                <td>{data1?.createKhachHang?.khachhang.DiaChi}</td>
-                                            </tr>
-                                        </tbody>
-                                    </Table>
-                    </Table>
-                } </Modal.Body>}
-                {modal2 && <Modal.Body className="text-center text-danger">⚠️ Tạo khách hàng thất bại!!, Trùng CMND/CCCD</Modal.Body>}
+                {modal1 && (
+                    <Modal.Body className="text-center text-success">
+                        ✅ Tạo khách hàng thành công!!{' '}
+                        {loading
+                            ? ' '
+                            : modal3 && (
+                                  <Table>
+                                      <Table className="mt-3" striped bordered hover size="sm">
+                                          <thead>
+                                              <tr>
+                                                  <th>Mã khách hàng</th>
+                                                  <th>Tên khách hàng</th>
+                                                  <th>CMND/CCCD</th>
+                                                  <th>SDT</th>
+                                                  <th>Địa chỉ</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                              <tr>
+                                                  <td>{data1?.createKhachHang?.khachhang.MaKhachHang}</td>
+                                                  <td>{data1?.createKhachHang?.khachhang.TenKhachHang}</td>
+                                                  <td>{data1?.createKhachHang?.khachhang.CMND}</td>
+                                                  <td>{data1?.createKhachHang?.khachhang.SDT}</td>
+                                                  <td>{data1?.createKhachHang?.khachhang.DiaChi}</td>
+                                              </tr>
+                                          </tbody>
+                                      </Table>
+                                  </Table>
+                              )}{' '}
+                    </Modal.Body>
+                )}
+                {modal2 && (
+                    <Modal.Body className="text-center text-danger">
+                        ⚠️ Tạo khách hàng thất bại!!, Trùng CMND/CCCD
+                    </Modal.Body>
+                )}
             </Modal>
         </FormField>
     );

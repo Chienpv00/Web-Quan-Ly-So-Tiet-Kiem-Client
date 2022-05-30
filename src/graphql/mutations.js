@@ -85,3 +85,21 @@ export const CREATE_PGT = gql`
         }
     }
 `;
+
+
+export const CREATE_CUSTOMER = gql`
+mutation Mutation($tenKhachHang: String!, $diaChi: String!, $cmnd: String!, $sdt: String!) {
+    createKhachHang(TenKhachHang: $tenKhachHang, DiaChi: $diaChi, CMND: $cmnd, SDT: $sdt) {
+        code
+        success
+        message
+        khachhang {
+            MaKhachHang
+            TenKhachHang
+            DiaChi
+            CMND
+            SDT
+        }
+    }
+}
+`;

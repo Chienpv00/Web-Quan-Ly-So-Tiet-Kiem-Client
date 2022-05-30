@@ -63,3 +63,38 @@ export const FILTER_LIST_PGT = gql`
         }
     }
 `;
+
+export const GET_KH_BY_CMND = gql`
+    query Query($cmnd: String!) {
+        getKhachHangByCmnd(CMND: $cmnd) {
+            MaKhachHang
+            TenKhachHang
+            DiaChi
+            CMND
+            SDT
+        }
+    }
+`;
+
+export const CHECK_LOGIN = gql`
+    query CheckLogin($tenDangNhap: String!, $matKhau: String!) {
+        checkLogin(TenDangNhap: $tenDangNhap, MatKhau: $matKhau) {
+            code
+            success
+            message
+            TenDangNhap
+            MaNhom
+            PhanQuyen {
+                MaNhom {
+                    MaNhom
+                    TenNhom
+                }
+                MaChucNang {
+                    MaChucNang
+                    TenChucNang
+                    TenManHinhDuocLoad
+                }
+            }
+        }
+    }
+`;

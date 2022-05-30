@@ -1,8 +1,8 @@
 import {useState} from 'react';
-import FormField from '../../component/FormField';
+import FormField from '../../../component/FormField';
 import { Row, Col, Form, Button, Alert, Table } from 'react-bootstrap';
 import { BsPlusLg } from 'react-icons/bs';
-import { GET_KH_BY_CMND } from './graphql';
+import { GET_KH_BY_CMND } from '../../../graphql/queries';
 import { useLazyQuery } from '@apollo/client';
 import { useForm } from 'react-hook-form';
 
@@ -10,7 +10,6 @@ const SearchCustomer = ({ setNav, RenderCreateCus, callSetData }) => {
     const {
         register,
         handleSubmit,
-        resetField,
         clearErrors,
         formState: { errors },
     } = useForm();

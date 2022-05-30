@@ -5,11 +5,11 @@ import { Modal } from 'react-bootstrap';
 import { Alert } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import { Form, Row, Col } from 'react-bootstrap';
-import { set, useForm } from 'react-hook-form';
-import FormField from '../../component/FormField';
+import { useForm } from 'react-hook-form';
+import FormField from '../../../component/FormField';
 
-import {GET_LOAI_TIET_KIEM} from '../../graphql/queries'
-import { CREATE_PGT } from '../../graphql/mutations';
+import {GET_LOAI_TIET_KIEM} from '../../../graphql/queries'
+import { CREATE_PGT } from '../../../graphql/mutations';
 
 const CreatePgt = ({ dataCus }) => {
     const {
@@ -130,6 +130,10 @@ const CreatePgt = ({ dataCus }) => {
                                         value: /[0-9]/,
                                         message: 'Vui lòng nhập vào chữ số!',
                                     },
+                                    min: {
+                                        value: 1000000,
+                                        message: 'Số tiền gởi tối thiểu là 1.000.000 VNĐ'
+                                    }
                                 })}
                             />
                             <p style={{ color: 'red' }} className="mt-2">

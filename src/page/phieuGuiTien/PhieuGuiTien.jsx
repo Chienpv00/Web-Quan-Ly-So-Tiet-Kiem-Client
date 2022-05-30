@@ -1,19 +1,9 @@
 import { useState } from 'react';
 import { Col } from 'react-bootstrap';
-import { Form } from 'react-bootstrap';
 import { Row } from 'react-bootstrap';
 import './styles.scss';
-import FormField from '../../component/FormField';
-import { Button } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
-import { Alert } from 'react-bootstrap';
 import { Nav } from 'react-bootstrap';
-import { NavLink, Route, Routes } from 'react-router-dom';
-import Inputbs from '../../component/Inputbs';
-import { Modal } from 'react-bootstrap';
-import { GET_KH_BY_CMND } from './graphql';
-import { useLazyQuery } from '@apollo/client';
-import { Table } from 'react-bootstrap';
 import SearchCustomer from './SearchCustomer';
 import CreateCus from './CreateCus';
 import CreatePgt from './CreatePgt';
@@ -22,9 +12,6 @@ const PhieuGuiTien = () => {
     // khai bao hook form
     const {
         register,
-        handleSubmit,
-        resetField,
-        clearErrors,
         formState: { errors },
     } = useForm();
 

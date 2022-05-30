@@ -3,7 +3,7 @@ import './styles.scss';
 import { useForm } from 'react-hook-form';
 import Input from '../../component/Input';
 import { useLazyQuery } from '@apollo/client';
-import { CHECK_LOGIN } from './graphql';
+import { CHECK_LOGIN } from '../../graphql/queries'
 import { useSelector, useDispatch } from 'react-redux';
 import { success } from '../../futures/login/loginSlice';
 import { useNavigate } from 'react-router-dom';
