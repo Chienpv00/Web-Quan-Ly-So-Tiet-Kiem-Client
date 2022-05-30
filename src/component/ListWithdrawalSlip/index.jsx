@@ -1,9 +1,9 @@
 import { useQuery } from '@apollo/client';
 import React, {   useState, useEffect } from 'react';
 import { Form, Table } from 'react-bootstrap';
-import { GET_DS_PGT } from './query';
+import { GET_DS_PGT } from '../../graphql/queries';
 
-export default function Dspgt({ maKhachHang, getPRT }) {
+export default function ListWithdrawalSlip({ maKhachHang, getPRT }) {
     
     const [disCheck, setDisCheck] = useState([]);
     const { loading, error, data, refetch } = useQuery(GET_DS_PGT, {

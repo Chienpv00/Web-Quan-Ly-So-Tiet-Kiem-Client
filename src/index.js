@@ -13,7 +13,7 @@ import store from './app/store';
 import Login from './page/Login/Login';
 import Home from './page/Home/Home';
 
-import PhieuRutTien from './component/PhieuRutTien';
+import WithdrawalSlip from './page/WithdrawalSlip'
 import PhieuGuiTien from './page/phieuGuiTien/PhieuGuiTien';
 import ListPgt from './page/ListPgt/ListPgt';
 import ReportDay from './page/ReportDay/ReportDay';
@@ -38,7 +38,7 @@ ReactDOM.render(
                             <Route path="" element={<Login />} />
                             <Route path="home" element={<Home />}>
                                 <Route index element={<div>Vui lòng chọn tính năng</div>} />
-                                <Route path="phieu-rut-tien" element={<PhieuRutTien />} />
+                                <Route path="phieu-rut-tien" element={<WithdrawalSlip />} />
                                 <Route path="phieu-gui-tien" element={<PhieuGuiTien />} />
                                 <Route path="danh-sach-phieu-gui-tien" element={<ListPgt />} />
                                 <Route path="bao-cao-doanh-so-hoat-dong-ngay" element={<ReportDay />} />

@@ -1,15 +1,16 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Col, Modal } from 'react-bootstrap';
 import { Alert } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import { Form, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useLazyQuery, useMutation } from '@apollo/client';
-import FormField from './FormField';
 import dateFormat from 'dateformat';
+import FormField from '../../component/FormField'
 
-import { CHECK_KHACH_HANG, CREATE_PHIEU_RUT_TIEN } from './query';
-import Dspgt from './dspgt';
+import { CREATE_PHIEU_RUT_TIEN } from '../../graphql/mutations';
+import { CHECK_KHACH_HANG } from '../../graphql/queries';
+import ListWithdrawalSlip from '../../component/ListWithdrawalSlip';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -22,7 +23,6 @@ const PhieuRutTien = () => {
     const [noti, setNoti] = useState(false);
    
     const [mutateFunc, { data1, loading1, error }] = useMutation(CREATE_PHIEU_RUT_TIEN);
-    const navigate = useNavigate()
     const {
         register,
         handleSubmit,
@@ -105,7 +105,7 @@ const PhieuRutTien = () => {
                 </Row>
                 <div style={renderDs ? { overflowY: 'auto', height: '207px' } : {}} className="scrollTable">
                     {renderDs && (
-                        <Dspgt getPRT={getPRT} maKhachHang={data?.checkKhachHangExists?.KhachHang?.MaKhachHang} />
+                        <ListWithdrawalSlip getPRT={getPRT} maKhachHang={data?.checkKhachHangExists?.KhachHang?.MaKhachHang} />
                     )}
                 </div>
             </FormField>
@@ -256,10 +256,9 @@ const PhieuRutTien = () => {
                             <Modal.Header closeButton>
                                 <Modal.Title>Xác nhận</Modal.Title>
                             </Modal.Header>
-                            <Modal.Body>{noti ? <Alert variant='success'>Lập phiếu rút tiền thành công! </Alert>: <Alert style={{width: "100%"}} variant='light'>Xác nhận tạo phiếu rút tiền cho phiếu gởi tiền này?</Alert>}</Modal.Body>
+                            <Modal.Body className='d-flex text-center justify-content-center'>{noti ? <Alert variant='success'>Lập phiếu rút tiền thành công! </Alert>: <Alert style={{width: "100%"}} variant='light'>Xác nhận tạo phiếu rút tiền cho phiếu gởi tiền này?</Alert>}</Modal.Body>
                             <Modal.Footer>
-                                <Button
-                                disabled= {noti}
+                                {!noti && <Button
                                     onClick={() => {
                                         mutateFunc({
                                             variables: { maPhieuGoi: phieuRT?.MaPhieuGoi, ngayRut: now },
@@ -272,7 +271,7 @@ const PhieuRutTien = () => {
                                     }}
                                 >
                                    Tạo phiếu rút
-                                </Button>
+                                </Button>}
                                 <Button
                                     variant="secondary"
                                     onClick={() => {

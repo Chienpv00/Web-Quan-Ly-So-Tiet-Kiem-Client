@@ -88,6 +88,7 @@ const AddRules = () => {
                                 {...register('kyHan', {
                                     required: { value: true, message: 'Trường này là bắt buộc' },
                                     pattern: { value: /[0-9]/, message: 'Sai định dạng' },
+                                    min: {value: 0, message: 'Sai định dạng!'}
                                 })}
                             />
                         </Col>
@@ -107,6 +108,7 @@ const AddRules = () => {
                                 {...register('laiSuat', {
                                     required: { value: true, message: 'Trường này là bắt buộc' },
                                     pattern: { value: /[0-9]/, message: 'Sai định dạng' },
+                                    min: {value: 0, message: 'Sai định dạng!'}
                                 })}
                             />
                         </Col>

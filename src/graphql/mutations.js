@@ -86,20 +86,29 @@ export const CREATE_PGT = gql`
     }
 `;
 
-
 export const CREATE_CUSTOMER = gql`
-mutation Mutation($tenKhachHang: String!, $diaChi: String!, $cmnd: String!, $sdt: String!) {
-    createKhachHang(TenKhachHang: $tenKhachHang, DiaChi: $diaChi, CMND: $cmnd, SDT: $sdt) {
-        code
-        success
-        message
-        khachhang {
-            MaKhachHang
-            TenKhachHang
-            DiaChi
-            CMND
-            SDT
+    mutation Mutation($tenKhachHang: String!, $diaChi: String!, $cmnd: String!, $sdt: String!) {
+        createKhachHang(TenKhachHang: $tenKhachHang, DiaChi: $diaChi, CMND: $cmnd, SDT: $sdt) {
+            code
+            success
+            message
+            khachhang {
+                MaKhachHang
+                TenKhachHang
+                DiaChi
+                CMND
+                SDT
+            }
         }
     }
-}
+`;
+
+export const CREATE_PHIEU_RUT_TIEN = gql`
+    mutation Mutation($maPhieuGoi: String!, $ngayRut: String!) {
+        createPhieuRutTien(MaPhieuGoi: $maPhieuGoi, NgayRut: $ngayRut) {
+            code
+            success
+            message
+        }
+    }
 `;

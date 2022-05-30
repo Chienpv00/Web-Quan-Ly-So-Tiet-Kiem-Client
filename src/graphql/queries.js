@@ -98,3 +98,38 @@ export const CHECK_LOGIN = gql`
         }
     }
 `;
+
+export const CHECK_KHACH_HANG = gql`
+    query Query($cmnd: String!) {
+        checkKhachHangExists(CMND: $cmnd) {
+            code
+            success
+            exists
+            KhachHang {
+                MaKhachHang
+                TenKhachHang
+                DiaChi
+                CMND
+                SDT
+            }
+        }
+    }
+`;
+
+export const GET_DS_PGT = gql`
+    query Query($maKhachHang: String!) {
+        getDSPGTbyMaKH(MaKhachHang: $maKhachHang) {
+            MaPhieuGoi
+            MaKhachHang
+            MaLoaiTietKiem
+            SoTienGoi
+            NgayGoi
+            NgayRut
+            TienLaiPhatSinh
+            SoDu
+            NgayDaoHanKeTiep
+            LaiSuatApDung
+            TrangThai
+        }
+    }
+`;
