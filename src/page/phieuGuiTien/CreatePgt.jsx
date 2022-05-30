@@ -7,7 +7,9 @@ import { Button } from 'react-bootstrap';
 import { Form, Row, Col } from 'react-bootstrap';
 import { set, useForm } from 'react-hook-form';
 import FormField from '../../component/FormField';
-import { GET_LOAITK, CREATE_PGT } from './graphql';
+
+import {GET_LOAI_TIET_KIEM} from '../../graphql/queries'
+import { CREATE_PGT } from '../../graphql/mutations';
 
 const CreatePgt = ({ dataCus }) => {
     const {
@@ -22,7 +24,7 @@ const CreatePgt = ({ dataCus }) => {
     } = useForm();
 
     // Query for get loai tk
-    const { data, loading } = useQuery(GET_LOAITK);
+    const { data, loading } = useQuery(GET_LOAI_TIET_KIEM);
 
     // mutation for create pgt
     const [callCrePgt] = useMutation(CREATE_PGT);
@@ -45,10 +47,11 @@ const CreatePgt = ({ dataCus }) => {
     });
 
     const callMutation = () => {
+
         callCrePgt({
             variables: {
                 maLoaiTietKiem: data.getLoaitk[parseInt(getValues('loaitk'))].MaLoaiTietKiem,
-                soTienGoi: parseInt(getValues('soTienGui')),
+                soTienGoi: Math.abs(parseInt(getValues('soTienGui'))),
                 maKhachHang: dataCus.getKhachHangByCmnd.MaKhachHang,
             },
             onCompleted: (data) => {
@@ -83,6 +86,7 @@ const CreatePgt = ({ dataCus }) => {
                             ) : (
                                 <Form.Select {...register('loaitk')}>
                                     {data.getLoaitk.map((value, index) => {
+                                        if(value.TrangThai===true)
                                         return (
                                             <option key={index} value={index}>
                                                 {value.TenLoaiTietKiem}

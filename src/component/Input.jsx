@@ -1,6 +1,6 @@
 import React from "react";
 
-const Input = ({ type, placeholder, register, name, required, minLength, pattern, errors, clearErrors}) => {
+const Input = ({ type,onKeyDown, placeholder, register, name, required, minLength, pattern, errors, clearErrors}) => {
     
     const onChange = () => {
         clearErrors(name)
@@ -9,6 +9,7 @@ const Input = ({ type, placeholder, register, name, required, minLength, pattern
     return (
         <div>
             <input
+                onKeyDown={onKeyDown}
                 onChange={onChange}
                 className="form-control"
                 type={type}

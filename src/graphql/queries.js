@@ -28,6 +28,7 @@ export const GET_LOAI_TIET_KIEM = gql`
             KyHan
             LaiSuatHienTai
             NgayApDung
+            TrangThai
         }
     }
 `;
@@ -40,6 +41,25 @@ export const GET_LOAI_TIET_KIEM_THEO_MA = gql`
             KyHan
             LaiSuatHienTai
             NgayApDung
+            TrangThai
+        }
+    }
+`;
+
+export const FILTER_LIST_PGT = gql`
+    query Query($input: filterListPGT!) {
+        filterPGT(input: $input) {
+            MaPhieuGoi
+            MaKhachHang
+            MaLoaiTietKiem
+            SoTienGoi
+            NgayGoi
+            NgayRut
+            TienLaiPhatSinh
+            SoDu
+            NgayDaoHanKeTiep
+            LaiSuatApDung
+            TrangThai
         }
     }
 `;

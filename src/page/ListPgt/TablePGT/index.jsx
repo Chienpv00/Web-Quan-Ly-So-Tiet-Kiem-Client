@@ -1,23 +1,26 @@
 import { useQuery } from '@apollo/client';
 import React from 'react';
 import { Table, Spinner } from 'react-bootstrap';
-import { FILTER_LIST_PGT } from './graphql';
+import { FILTER_LIST_PGT } from '../../../graphql/queries';
 
 function TablePGT({ customerData }) {
     console.log('🚀 ~ file: TablePGT.jsx ~ line 7 ~ TablePGT ~ customerData', customerData);
 
     const { data, loading, error } = useQuery(FILTER_LIST_PGT, { variables: { input: customerData } });
 
-    if (loading) return <>
-    <Spinner animation="grow" variant="primary" />
-  <Spinner animation="grow" variant="secondary" />
-  <Spinner animation="grow" variant="success" />
-  <Spinner animation="grow" variant="danger" />
-  <Spinner animation="grow" variant="warning" />
-  <Spinner animation="grow" variant="info" />
-  <Spinner animation="grow" variant="light" />
-  <Spinner animation="grow" variant="dark" />
-    </>
+    if (loading)
+        return (
+            <>
+                <Spinner animation="grow" variant="primary" />
+                <Spinner animation="grow" variant="secondary" />
+                <Spinner animation="grow" variant="success" />
+                <Spinner animation="grow" variant="danger" />
+                <Spinner animation="grow" variant="warning" />
+                <Spinner animation="grow" variant="info" />
+                <Spinner animation="grow" variant="light" />
+                <Spinner animation="grow" variant="dark" />
+            </>
+        );
 
     return (
         <Table style={{ overflowY: 'auto', height: '200px !important' }} responsive striped bordered hover>

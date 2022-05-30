@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import './styles.scss';
 import { useForm } from 'react-hook-form';
 import Input from '../../component/Input';
@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { success } from '../../futures/login/loginSlice';
 import { useNavigate } from 'react-router-dom';
 import { Alert, Spinner } from 'react-bootstrap';
-import {BsFillExclamationTriangleFill} from 'react-icons/bs'
+import { BsFillExclamationTriangleFill } from 'react-icons/bs';
 
 const Login = () => {
     // create react hook form
@@ -17,14 +17,19 @@ const Login = () => {
         handleSubmit,
         formState: { errors },
         clearErrors,
+        setFocus
     } = useForm();
 
     // get data from redux
     const loginData = useSelector((state) => state.login);
     const dispatch = useDispatch();
 
-    React.useEffect(() => {
+    // display info when wrong password
+    const [loginStatus, setLoginStatus] = useState(false);
+
+    useEffect(() => {
         if (loginData.success === true) navigate('/home');
+       
     }, [loginData.success]);
     // create navigate func from hook
     const navigate = useNavigate();
@@ -39,10 +44,18 @@ const Login = () => {
                 matKhau: result.password,
             },
             onCompleted: (data) => {
+                if (data.checkLogin.success === false) {
+                    setLoginStatus(true);
+                    setFocus('userName')
+                }
                 dispatch(success(data.checkLogin));
             },
         });
     });
+
+    const onKeyDown = () => { 
+        setTimeout(() => { setLoginStatus(false) }, 1000)
+     }
 
     return (
         <main className="container">
@@ -51,6 +64,7 @@ const Login = () => {
 
                 <div className="mb-2">
                     <Input
+                        onKeyDown={onKeyDown}
                         register={register}
                         name="userName"
                         type="text"
@@ -74,12 +88,24 @@ const Login = () => {
                     errors={errors?.password}
                     clearErrors={clearErrors}
                 />
-                <button className="btn btn-primary mt-3  fs-5"> {loading && (
-                    <Spinner animation="border" size='sm' />
-            )} Đăng nhập</button>
+                <button className="btn btn-primary mt-3  fs-5">
+                    {' '}
+                    {loading && <Spinner animation="border" size="sm" />} Đăng nhập
+                </button>
             </form>
-            
-            {error && <Alert className='alert-login' variant='danger'><BsFillExclamationTriangleFill/> Đăng nhập thất bại!!</Alert>}
+
+            {error && (
+                <Alert className="alert-login" variant="danger">
+                    <BsFillExclamationTriangleFill /> Đăng nhập thất bại!!
+                </Alert>
+            )}
+            {loginStatus && (
+                <Alert className="alert-login" variant="danger">
+                    <BsFillExclamationTriangleFill />
+                    Tài khoản hoặc mật khẩu sai, vui lòng kiểm tra lại hoặc liên hệ với quản trị viên tại sđt:
+                    0385508780
+                </Alert>
+            )}
         </main>
     );
 };

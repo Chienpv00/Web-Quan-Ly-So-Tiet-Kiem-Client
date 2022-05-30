@@ -33,20 +33,22 @@ function TableRules({ handleDelete, reFetch, nav }) {
                         <th>Kỳ hạn</th>
                         <th>Lãi suất</th>
                         <th>Ngày áp dụng</th>
+                        <th>Trạng thái</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     {data.getLoaitk.map((value) => {
                         return (
-                            <tr key={value.MaLoaiTietKiem}>
+                            <tr className={value.TrangThai ? '' : 'statusFalse'} key={value.MaLoaiTietKiem}>
                                 <td>{value.MaLoaiTietKiem}</td>
                                 <td>{value.TenLoaiTietKiem}</td>
                                 <td>{value.KyHan}</td>
                                 <td>{value.LaiSuatHienTai}</td>
                                 <td>{value.NgayApDung}</td>
+                                <td>{value.TrangThai.toString()}</td>
                                 <td>
-                                    <Button value={value.MaLoaiTietKiem} onClick={sendCode}>
+                                    <Button disabled={!value.TrangThai} variant={value.TrangThai ? 'primary':'secondary'} value={value.MaLoaiTietKiem} onClick={sendCode}>
                                         Xóa{' '}
                                     </Button>{' '}
                                 </td>

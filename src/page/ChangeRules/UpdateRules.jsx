@@ -38,6 +38,8 @@ const UpdateRules = ({ nav }) => {
                 setValue('ten', result.getLoaitkWithma.TenLoaiTietKiem);
                 setValue('kyHan', result.getLoaitkWithma.KyHan);
                 setValue('laiSuat', result.getLoaitkWithma.LaiSuatHienTai);
+                setValue('trangThai', result.getLoaitkWithma.TrangThai);
+
                 const d = new Date(result.getLoaitkWithma.NgayApDung);
                 setStartDate(d);
             },
@@ -54,17 +56,23 @@ const UpdateRules = ({ nav }) => {
     };
 
     const onSubmit = handleSubmit((value) => {
-
         if (Object.keys(errors).length === 0) {
-            let date = dateFormat(startDate, 'yyyy-mm-dd');
-            loadUpdateLTK({
-                variables: { loaiTkInp: { ...value, ngayApDung: date, laiSuat: parseFloat(value.laiSuat) } },
-                onCompleted: (value) => {
-                    setState(true);
-                    setShowMainModal(false);
-                    value.updateLoaiTietKiem.success === true ? setShowSuccess(true) : setShowError(true);
-                },
-            });
+            if (parseFloat(value.kyHan) < 0 || parseFloat(value.laiSuat) < 0) {
+                setShowError(true);
+            } else {
+                setShowError(false)
+                let date = dateFormat(startDate, 'yyyy-mm-dd');
+                console.log(value);
+                console.log(date);
+                loadUpdateLTK({
+                    variables: { loaiTkInp: { ...value, ngayApDung: date, laiSuat: parseFloat(value.laiSuat), kyHan:parseFloat(value.kyHan) } },
+                    onCompleted: (value) => {
+                        setState(true);
+                        setShowMainModal(false);
+                        value.updateLoaiTietKiem.success === true ? setShowSuccess(true) : setShowError(true);
+                    },
+                });
+            }
         }
     });
     return (
@@ -73,7 +81,9 @@ const UpdateRules = ({ nav }) => {
                 <TableUpdateRules nav={nav} handleUpdate={handleUpdate} reFetch={state} />
                 <Modal backdrop="static" animation show={show} onHide={onHide}>
                     <form onSubmit={onSubmit}>
-                        <Modal.Header closeButton><Modal.Title>Chỉnh sửa loại tiết kiệm</Modal.Title></Modal.Header>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Chỉnh sửa loại tiết kiệm</Modal.Title>
+                        </Modal.Header>
                         {showMainModal ? (
                             <>
                                 {' '}
@@ -109,6 +119,13 @@ const UpdateRules = ({ nav }) => {
                                         <Form.Label>Ngày áp dụng</Form.Label>
                                         <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
                                     </Form.Group>
+                                    <Form.Group>
+                                        <Form.Label>Trạng Thái</Form.Label>
+                                        <Form.Select {...register('trangThai')}>
+                                            <option value={'true'}>True</option>
+                                            <option value={'false'}>False</option>
+                                        </Form.Select>
+                                    </Form.Group>
                                 </Modal.Body>
                                 <Modal.Footer>
                                     <Button
@@ -127,12 +144,12 @@ const UpdateRules = ({ nav }) => {
                         )}
                     </form>
                     {showSuccess && (
-                        <Modal.Body>
+                        <Modal.Body className='d-flex justify-content-center text-center'>
                             <Alert variant="success">Chỉnh sửa thành công ✅</Alert>
                         </Modal.Body>
                     )}
                     {showError && (
-                        <Modal.Body>
+                        <Modal.Body className='d-flex justify-content-center text-center'>
                             <Alert variant="danger">Chỉnh sửa thất bại ⚠️</Alert>
                         </Modal.Body>
                     )}

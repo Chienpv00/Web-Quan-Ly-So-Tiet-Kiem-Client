@@ -19,37 +19,49 @@ const AddRules = () => {
         register,
         handleSubmit,
         formState: { errors },
-        resetField
+        resetField,
     } = useForm();
     const [submitMutation, { data, loading, error, reset }] = useMutation(ADD_RULES);
     const onSubmit = handleSubmit((value) => {
         const ngayApDung = dateFormat(startDate, 'yyyy-mm-dd');
-        const loaiTKInp = {
-            ten: value.ten,
-            kyHan: parseFloat(value.kyHan),
-            laiSuat: parseFloat(value.laiSuat) / 100.0,
-            ngayApDung,
-        };
 
-        submitMutation({
-            variables: { loaiTkInp: loaiTKInp },
-            onCompleted: () => {
-                setShow(true);
-            },
-        });
+        if (parseFloat(value.kyHan) < 0 || parseFloat(value.laiSuat) < 0) {
+            setShowFail(true);
+        } else {
+            const loaiTKInp = {
+                ten: value.ten,
+                kyHan: parseFloat(value.kyHan),
+                laiSuat: parseFloat(value.laiSuat) / 100.0,
+                ngayApDung,
+            };
+            console.log("🚀 ~ file: AddRules.jsx ~ line 37 ~ onSubmit ~ loaiTKInp", loaiTKInp)
+
+            submitMutation({
+                variables: { loaiTkInp: loaiTKInp },
+                onCompleted: () => {
+                    setShow(true);
+                },
+            });
+        }
     });
 
     const [show, setShow] = useState(false);
+    const [showFail, setShowFail] = useState(false);
 
     const [startDate, setStartDate] = useState(new Date());
 
     const handleClose = () => {
         setShow(false);
         reset();
-        resetField('ten')
-        resetField('kyHan')
-        resetField('laiSuat')
+        resetField('ten');
+        resetField('kyHan');
+        resetField('laiSuat');
     };
+    const handleCloseFail = () => {
+        setShowFail(false);
+        reset();
+    };
+
     return (
         <FormField legend={'Nhập dữ liệu:'} onSubmit={onSubmit}>
             <Row>
@@ -64,6 +76,7 @@ const AddRules = () => {
                             />
                         </Col>
                         <Col sm="3"></Col>
+                        <Col className="text-danger mt-2 mx-5">{errors?.ten?.message}</Col>
                     </Form.Group>
                     <Form.Group as={Row}>
                         <Form.Label as={Col} sm="2">
@@ -72,12 +85,16 @@ const AddRules = () => {
                         <Col sm="7">
                             <Form.Control
                                 type="number"
-                                {...register('kyHan', { required: { value: true, message: 'Trường này là bắt buộc' } })}
+                                {...register('kyHan', {
+                                    required: { value: true, message: 'Trường này là bắt buộc' },
+                                    pattern: { value: /[0-9]/, message: 'Sai định dạng' },
+                                })}
                             />
                         </Col>
                         <Col sm="3">
                             <i>Tháng</i>
                         </Col>
+                        <Col className="text-danger mt-2 mx-5">{errors?.kyHan?.message}</Col>
                     </Form.Group>
                 </Col>
                 <Col className="mb-3">
@@ -87,13 +104,14 @@ const AddRules = () => {
                         </Form.Label>
                         <Col sm="7">
                             <Form.Control
-                                type="number"
                                 {...register('laiSuat', {
                                     required: { value: true, message: 'Trường này là bắt buộc' },
+                                    pattern: { value: /[0-9]/, message: 'Sai định dạng' },
                                 })}
                             />
                         </Col>
                         <Col sm="2">%</Col>
+                        <Col className="text-danger mt-2 mx-5">{errors?.laiSuat?.message}</Col>
                     </Form.Group>
                     <Form.Group as={Row}>
                         <Form.Label as={Col} sm="3">
@@ -114,7 +132,7 @@ const AddRules = () => {
                 Tạo
             </Button>
             {show && (
-                <Modal show={show} onHide={handleClose}>
+                <Modal backdrop="static" show={show} onHide={handleClose}>
                     <Modal.Header closeButton></Modal.Header>
                     <Modal.Body>
                         <Alert variant="success">Thao tác thành công !!!</Alert>
@@ -131,14 +149,23 @@ const AddRules = () => {
                         </thead>
                         <tbody>
                             <tr>
-                                <td>{data.addLoaiTietKiem.LoaiTietKiem.MaLoaiTietKiem}</td>
-                                <td>{data.addLoaiTietKiem.LoaiTietKiem.TenLoaiTietKiem}</td>
-                                <td>{data.addLoaiTietKiem.LoaiTietKiem.KyHan}</td>
-                                <td>{data.addLoaiTietKiem.LoaiTietKiem.LaiSuatHienTai}</td>
-                                <td>{data.addLoaiTietKiem.LoaiTietKiem.NgayApDung}</td>
+                                <td>{data?.addLoaiTietKiem.LoaiTietKiem.MaLoaiTietKiem}</td>
+                                <td>{data?.addLoaiTietKiem.LoaiTietKiem.TenLoaiTietKiem}</td>
+                                <td>{data?.addLoaiTietKiem.LoaiTietKiem.KyHan}</td>
+                                <td>{data?.addLoaiTietKiem.LoaiTietKiem.LaiSuatHienTai}</td>
+                                <td>{data?.addLoaiTietKiem.LoaiTietKiem.NgayApDung}</td>
                             </tr>
                         </tbody>
                     </Table>
+                </Modal>
+            )}
+
+            {showFail && (
+                <Modal backdrop="static" show={showFail} onHide={handleCloseFail}>
+                    <Modal.Header closeButton><Modal.Title >Thông báo</Modal.Title></Modal.Header>
+                    <Modal.Body className='text-center d-flex justify-content-center'>
+                        <Alert variant="danger">Thao tác thất bại, sai định dạng!</Alert>
+                    </Modal.Body>
                 </Modal>
             )}
         </FormField>

@@ -31,18 +31,20 @@ const TableUpdateRules = ({ reFetch, nav, handleUpdate }) => {
                         <th>Kỳ hạn</th>
                         <th>Lãi suất</th>
                         <th>Ngày áp dụng</th>
+                        <th>Trạng Thái</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     {data.getLoaitk.map((value) => {
                         return (
-                            <tr key={value.MaLoaiTietKiem}>
+                            <tr className={value.TrangThai ? '' : 'statusFalse'} key={value.MaLoaiTietKiem}>
                                 <td>{value.MaLoaiTietKiem}</td>
                                 <td>{value.TenLoaiTietKiem}</td>
                                 <td>{value.KyHan}</td>
                                 <td>{value.LaiSuatHienTai}</td>
                                 <td>{value.NgayApDung}</td>
+                                <td>{value.TrangThai.toString()}</td>
                                 <td>
                                     <Button value={value.MaLoaiTietKiem} onClick={sendCode}>
                                         Sửa{' '}
@@ -50,6 +52,7 @@ const TableUpdateRules = ({ reFetch, nav, handleUpdate }) => {
                                 </td>
                             </tr>
                         );
+
                     })}
                 </tbody>
             </Table>

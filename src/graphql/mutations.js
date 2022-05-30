@@ -50,3 +50,38 @@ export const UPDATE_RULES = gql`
         }
     }
 `;
+
+export const CREATE_PGT = gql`
+    mutation Mutation($maLoaiTietKiem: String!, $soTienGoi: Float!, $maKhachHang: String!) {
+        createPhieuGuiTien(MaLoaiTietKiem: $maLoaiTietKiem, SoTienGoi: $soTienGoi, MaKhachHang: $maKhachHang) {
+            code
+            success
+            message
+            PhieuGoiTien {
+                MaPhieuGoi
+                SoTienGoi
+                NgayGoi
+                NgayRut
+                TienLaiPhatSinh
+                SoDu
+                NgayDaoHanKeTiep
+                LaiSuatApDung
+                TrangThai
+                MaKhachHang {
+                    MaKhachHang
+                    TenKhachHang
+                    DiaChi
+                    CMND
+                    SDT
+                }
+                MaLoaiTietKiem {
+                    MaLoaiTietKiem
+                    TenLoaiTietKiem
+                    KyHan
+                    LaiSuatHienTai
+                    NgayApDung
+                }
+            }
+        }
+    }
+`;
